@@ -17,14 +17,17 @@ export default function Home() {
     <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <Globe className="h-6 w-6" />
             <span className="text-xl font-bold">BetterAuth</span>
           </div>
           <nav className="flex items-center gap-6">
-            <Link href="/app" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              Dashboard
+            <Link href="/sign-in" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Sign In
+            </Link>
+            <Link href="/sign-up" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+              Sign Up
             </Link>
             <ModeToggle />
           </nav>
@@ -32,7 +35,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="container px-4 py-24 md:py-32">
+      <section className="px-4 py-24 md:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl">
             Modern Authentication
@@ -44,14 +47,14 @@ export default function Home() {
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link href="/app">
+              <Link href="/sign-up">
                 Get Started
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link href="#features">
-                Learn More
+              <Link href="/sign-in">
+                Sign In
               </Link>
             </Button>
           </div>
@@ -59,7 +62,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="container px-4 py-24">
+      <section id="features" className="px-4 py-24">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -129,7 +132,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="container px-4 py-24">
+      <section className="px-4 py-24">
         <div className="mx-auto max-w-4xl">
           <Card className="border-primary/20 bg-primary/5">
             <CardHeader className="text-center">
@@ -140,8 +143,8 @@ export default function Home() {
             </CardHeader>
             <CardContent className="flex justify-center">
               <Button asChild size="lg">
-                <Link href="/app">
-                  Launch Dashboard
+                <Link href="/sign-up">
+                  Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>

@@ -1,17 +1,21 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { Separator } from "@/components/ui/separator"
 import { ModeToggle } from "@/components/mode-toggle"
+import { authClient } from "@/lib/auth-client"
 
 export default function AppLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter()
   const [defaultOpen, setDefaultOpen] = React.useState(true)
+  const { data: session, isPending } = authClient.useSession()
 
   React.useEffect(() => {
     // Read sidebar state from cookie
@@ -24,6 +28,38 @@ export default function AppLayout({
       setDefaultOpen(cookieValue === "true")
     }
   }, [])
+
+  React.useEffect(() => {
+    // Redirect to sign-in if not authenticated
+    if (!isPending && !session?.user) {
+      // Use replace instead of push to avoid adding to history
+      router.replace("/sign-in?callbackUrl=/app")
+    }
+  }, [session, isPending, router])
+
+  // Show loading state while checking session
+  if (isPending) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="mb-4 text-lg font-semibold">Loading...</div>
+          <div className="text-sm text-muted-foreground">Checking authentication...</div>
+        </div>
+      </div>
+    )
+  }
+
+  // Show loading state while redirecting if not authenticated
+  if (!session?.user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="mb-4 text-lg font-semibold">Redirecting...</div>
+          <div className="text-sm text-muted-foreground">Please sign in to continue</div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
